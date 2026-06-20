@@ -1,0 +1,12 @@
+{
+  "name": "todo-life-dashboard",
+  "version": "1.0.0",
+  "description": "To-Do Life Dashboard — zero-dependency single-page web app",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/pbt.test.js"
+  },
+  "devDependencies": {
+    "fast-check": "3.22.0"
+  }
+}

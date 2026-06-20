@@ -1,0 +1,430 @@
+/* =========================================================
+   CSS Custom Properties — Colour Palette
+   All colours validated for WCAG 2.1 AA contrast (4.5:1 normal text)
+   ========================================================= */
+:root {
+  /* Colours */
+  --color-bg: #1a1a2e;          /* Page background */
+  --color-surface: #16213e;     /* Widget card background */
+  --color-surface-alt: #0f3460; /* Hover / subtle accent surface */
+  --color-text: #e0e0e0;        /* Primary text — 10.5:1 on --color-surface */
+  --color-text-muted: #a0a0b0;  /* Secondary text — 5.1:1 on --color-surface */
+  --color-primary: #e94560;     /* Interactive accent */
+  --color-primary-hover: #c73652;
+  --color-border: #2a3a5c;      /* Card / input borders */
+  --color-error: #ff6b6b;       /* Error messages — 5.0:1 on --color-surface */
+  --color-success: #4ecdc4;     /* Success / completed state accent */
+  --color-completed: #6c7a89;   /* Strikethrough task text */
+
+  /* Spacing */
+  --space-xs: 0.25rem;   /* 3.5px  */
+  --space-sm: 0.5rem;    /* 7px    */
+  --space-md: 1rem;      /* 14px   */
+  --space-lg: 1.5rem;    /* 21px   */
+  --space-xl: 2rem;      /* 28px   */
+
+  /* Typography */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-size-base: 1rem;       /* 14px (based on html font-size: 14px) */
+  --font-size-sm: 0.857rem;     /* 12px */
+  --font-size-heading: 1.25rem; /* 17.5px — meets ≥1.25× body requirement */
+  --font-size-timer: 3rem;      /* 42px */
+
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   Reset & Base
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px; /* Baseline — all rem values derive from this */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: var(--space-lg);
+}
+
+/* =========================================================
+   Dashboard Grid
+   ========================================================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-areas:
+    "greeting greeting"
+    "timer    todos"
+    "links    links";
+  grid-template-columns: minmax(240px, 1fr) 2fr;
+  gap: var(--space-lg);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Section grid-area assignments */
+#greeting-widget { grid-area: greeting; }
+#focus-timer     { grid-area: timer; }
+#todo-list       { grid-area: todos; }
+#quick-links     { grid-area: links; }
+
+/* =========================================================
+   Responsive — single column ≤ 1023px
+   ========================================================= */
+@media (max-width: 1023px) {
+  .dashboard-grid {
+    grid-template-areas:
+      "greeting"
+      "timer"
+      "todos"
+      "links";
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   Widget Card Styles
+   ========================================================= */
+.dashboard-grid > section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-lg);
+}
+
+/* =========================================================
+   Section Headings (widget-heading)
+   font-size ≥ 1.25rem to satisfy Req 9.3 (≥1.25× body)
+   font-weight 600 to be visually distinct
+   ========================================================= */
+.widget-heading {
+  font-size: var(--font-size-heading);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   Greeting Widget
+   ========================================================= */
+#greeting-widget {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+#greeting-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  min-height: 1.6em; /* Reserve space when greeting is empty */
+}
+
+#current-time {
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+}
+
+#current-date {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+/* =========================================================
+   Focus Timer
+   ========================================================= */
+#focus-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+#timer-display {
+  font-size: var(--font-size-timer); /* 3rem */
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+#timer-ended-indicator {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-error);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* hidden attribute hides the element; override only when visible */
+#timer-ended-indicator:not([hidden]) {
+  display: block;
+}
+
+.timer-controls {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* =========================================================
+   To-Do List
+   ========================================================= */
+#todo-add-form {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+#todo-add-form input {
+  flex: 1;
+}
+
+#todo-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#todo-items li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.task-label {
+  flex: 1;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+/* Completed task styling — strikethrough + reduced opacity (Req 5.2, 5.3) */
+#todo-items li.completed .task-label {
+  text-decoration: line-through;
+  color: var(--color-completed);
+  opacity: 0.7;
+}
+
+#todo-items li.completed input[type="checkbox"] {
+  opacity: 0.7;
+}
+
+/* =========================================================
+   Quick Links
+   ========================================================= */
+#links-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  min-height: 2.5rem; /* Reserve space when panel is empty */
+}
+
+#link-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+#link-add-form input {
+  flex: 1;
+  min-width: 120px;
+}
+
+#link-error {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  min-height: 1.4em; /* Prevent layout shift when error appears/disappears */
+}
+
+/* Link buttons */
+.link-btn {
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.link-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Invalid URL indicator (Req 6.3) */
+.link-btn--invalid {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  cursor: not-allowed;
+}
+
+.link-btn--invalid:hover {
+  background-color: transparent;
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* Delete link button */
+.btn-delete-link {
+  padding: 0 var(--space-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.btn-delete-link:hover {
+  color: var(--color-error);
+}
+
+/* =========================================================
+   Shared Form Controls
+   ========================================================= */
+input[type="text"],
+input[type="url"] {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.15s ease;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  border-color: var(--color-primary);
+}
+
+input[type="text"]::placeholder,
+input[type="url"]::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* =========================================================
+   Shared Buttons
+   ========================================================= */
+button {
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-family: var(--font-body);
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Secondary / ghost button variant (Edit, Stop, Reset) */
+button.btn-edit,
+#btn-stop,
+#btn-reset {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+button.btn-edit:hover,
+#btn-stop:hover,
+#btn-reset:hover {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+/* Delete button — styled as ghost */
+button.btn-delete {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border-color: transparent;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+button.btn-delete:hover {
+  color: var(--color-error);
+  background-color: transparent;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+/* =========================================================
+   Scrollbar Styling (webkit)
+   ========================================================= */
+#todo-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+#todo-items::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+#todo-items::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}

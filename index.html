@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do Life Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="dashboard-grid">
+
+      <!-- Greeting Widget -->
+      <section id="greeting-widget" aria-label="Greeting">
+        <p id="greeting-text"></p>
+        <h1 id="current-time"></h1>
+        <p id="current-date"></p>
+      </section>
+
+      <!-- Focus Timer -->
+      <section id="focus-timer" aria-label="Focus Timer">
+        <h2 class="widget-heading">Focus Timer</h2>
+        <div id="timer-display">25:00</div>
+        <div id="timer-ended-indicator" hidden>Session ended</div>
+        <div class="timer-controls">
+          <button id="btn-start">Start</button>
+          <button id="btn-stop">Stop</button>
+          <button id="btn-reset">Reset</button>
+        </div>
+      </section>
+
+      <!-- To-Do List -->
+      <section id="todo-list" aria-label="To-Do List">
+        <h2 class="widget-heading">To-Do List</h2>
+        <form id="todo-add-form">
+          <input
+            id="todo-input"
+            type="text"
+            placeholder="Add a task…"
+            autocomplete="off"
+            maxlength="500"
+          />
+          <button type="submit">Add</button>
+        </form>
+        <ul id="todo-items"></ul>
+      </section>
+
+      <!-- Quick Links -->
+      <section id="quick-links" aria-label="Quick Links">
+        <h2 class="widget-heading">Quick Links</h2>
+        <div id="links-panel"></div>
+        <form id="link-add-form">
+          <input
+            id="link-label-input"
+            type="text"
+            placeholder="Label"
+            maxlength="100"
+            autocomplete="off"
+          />
+          <input
+            id="link-url-input"
+            type="url"
+            placeholder="https://…"
+            maxlength="2048"
+            autocomplete="off"
+          />
+          <button type="submit">Add Link</button>
+          <p id="link-error" role="alert" aria-live="polite"></p>
+        </form>
+      </section>
+
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
